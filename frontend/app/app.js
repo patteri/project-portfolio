@@ -12,6 +12,9 @@ var App = angular.module('app', [
         // Pre-cached partials
         'app.partials',
 
+        // Common
+        'common.services.contentService',
+
         // Controllers
         'app.frontpage.controller', 'app.files.controller', 'app.projects.controller', 'app.contact.controller'
     ])

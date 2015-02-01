@@ -10,6 +10,8 @@ angular.module('app.files.controller', [])
                     controller: 'FilesController'
                 });
         }])
-    .controller('FilesController', ['$scope',
-        function ($scope) {
+    .controller('FilesController', ['$scope', 'Contents',
+        function ($scope, Contents) {
+            $scope.files = Contents.files;
+            $scope.links = Contents.links;
         }]);

@@ -10,7 +10,11 @@ angular.module('app.projects.controller', [])
                     controller: 'ProjectsController'
                 });
         }])
-    .controller('ProjectsController', ['$scope',
-        function ($scope) {
+    .controller('ProjectsController', ['$scope', 'Contents',
+        function ($scope, Contents) {
+            $scope.projects = Contents.projects;
 
+            $scope.getTagString = function (tags) {
+                return tags.join(', ');
+            };
         }]);

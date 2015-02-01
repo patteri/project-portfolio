@@ -1,4 +1,20 @@
 <div>
-    <h2>Projects</h2>
-    <p>content...</p>
+    <div ng-repeat="project in projects" class="project-item">
+        <h4>{{project.name}} ({{project.time}})</h4>
+        <dl class="dl-horizontal">
+            <dt>Type</dt>
+            <dd>{{project.type}}</dd>
+            <dt>Description</dt>
+            <dd>{{project.description}}</dd>
+            <dt>Tags</dt>
+            <dd>{{getTagString(project.tags)}}</dd>
+            <dt>Link</dt>
+            <dd><a href="{{project.link.url}}" target="_blank">{{project.link.name}}</a></dd>
+        </dl>
+        <div class="row">
+            <div ng-repeat="image in project.images" class="col-lg-4 col-md-6 col-sm-6">
+                <a href="./_public/frontend/images/{{image}}.png"><img src="./_public/frontend/images/{{image}}_thumb.png" alt="Project image" height="180"></a>
+            </div>
+        </div>
+    </div>
 </div>

@@ -1,4 +1,14 @@
 <div>
-    <h2>Home</h2>
-    <p>content...</p>
+    <h3 translate="files.header"></h3>
+    <ul>
+        <li ng-repeat="file in files">
+            <a href="./_public/frontend/files/{{file.filename}}">{{file.name}}</a>
+        </li>
+    </ul>
+    <h3 translate="files.header2"></h3>
+    <ul>
+        <li ng-repeat="link in links">
+            <a href="{{link.url}}" target="_blank">{{link.name}}</a>
+        </li>
+    </ul>
 </div>
