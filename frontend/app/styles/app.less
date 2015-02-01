@@ -1,0 +1,17 @@
+[ng-cloak] {
+  display: none;
+}
+
+@import "/bower_components/bootstrap/less/bootstrap.less";
+@import "/bower_components/bootstrap/less/theme.less";
+
+// Your custom theme
+@import "_variables.less";
+
+// Fix links without #
+.nav, .pagination, .carousel a { cursor: pointer; }
+
+/*
+Place custom styles here. These styles should loaded after
+bootstrap, so they may override it's behavior.
+*/
