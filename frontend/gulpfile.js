@@ -95,7 +95,7 @@ gulp.task('watch', ['jshint', 'build'], function () {
     gulp.watch(config.appFiles.partials, ['appPartials']);
     gulp.watch(config.appFiles.code, ['appCode', 'jshint']);
     gulp.watch(config.appFiles.styleBase + '**', ['appLess']);
-    gulp.watch(config.appFiles.assets, ['appStatic']);
+    gulp.watch(config.appFiles.assets, ['appAssets']);
     gulp.watch(config.vendorFiles.code, ['vendorCode']);
 });
 
