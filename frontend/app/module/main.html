@@ -9,7 +9,9 @@
                     <span class="icon-bar"></span>
                 </button>
 
-                <a class="navbar-brand ps-brand" ui-sref="home">
+                <a class="navbar-brand" ui-sref="main.frontpage">
+                    <span class="title" translate="global.title"></span><br/>
+                    <span class="title-second" translate="global.title2"></span>
                 </a>
             </div>
 
@@ -22,4 +24,12 @@
     <div class="container main-content">
         <div ui-view autoscroll="false"></div>
     </div>
+
+    <footer class="footer">
+        <div class="container">
+            <p class="text-muted text-center">
+                &copy; 2015 <a href="https://github.com/patteri" target="_blank">Petteri Roponen</span></a>
+            </p>
+        </div>
+    </footer>
 </div>

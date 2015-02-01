@@ -24,6 +24,10 @@ module.exports = {
             './bower_components/angular-resource/angular-resource.min.js',
             './bower_components/angular-sanitize/angular-sanitize.min.js',
             './bower_components/angular-messages/angular-messages.min.js',
+            './bower_components/angular-translate/angular-translate.min.js',
+            './bower_components/angular-translate-loader-static-files/angular-translate-loader-static-files.min.js',
+            './bower_components/angular-translate-storage-cookie/angular-translate-storage-cookie.min.js',
+            './bower_components/angular-translate-handler-log/angular-translate-handler-log.min.js',
             './bower_components/angular-ui-router/release/angular-ui-router.min.js',
             './bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js',
             "./vendor/**/*.js"

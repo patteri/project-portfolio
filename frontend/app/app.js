@@ -5,6 +5,7 @@ var App = angular.module('app', [
         'ngResource',
         'ngSanitize',
         'ngMessages',
+        'pascalprecht.translate',
         'ui.bootstrap',
         'ui.router',
 
@@ -12,7 +13,7 @@ var App = angular.module('app', [
         'app.partials',
 
         // Controllers
-        'app.frontpage.controller', 'app.projects.controller'
+        'app.frontpage.controller', 'app.files.controller', 'app.projects.controller', 'app.contact.controller'
     ])
     .run(['$state', function ($state) {
         $state.go('main.frontpage');
@@ -22,6 +23,17 @@ var App = angular.module('app', [
 
         // Without server side support html5 must be disabled.
         $locationProvider.html5Mode(false);
+    }])
+    .config(['$translateProvider', function ($translateProvider) {
+        // Initialize angular-translate
+        $translateProvider.useStaticFilesLoader({
+            prefix: '_public/frontend/i18n/',
+            suffix: '.json'
+        });
+
+        $translateProvider.preferredLanguage('en');
+        $translateProvider.useCookieStorage();
+        $translateProvider.useMissingTranslationHandlerLog();
     }])
     .config(['$stateProvider', function ($stateProvider) {
         $stateProvider.state('main', {

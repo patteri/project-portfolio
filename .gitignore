@@ -61,3 +61,6 @@ frontend/bower_components
 
 # Compiled JS application
 frontend/_public
+
+# Localization files (page contents)
+frontend/app/assets/i18n/*
