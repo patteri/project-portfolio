@@ -25,6 +25,16 @@ gulp.task('appCode', function () {
         .pipe(plugins.size({title: 'application'}));
 });
 
+gulp.task('appIndex', function () {
+    return gulp.src(config.appFiles.index)
+        .pipe(plugins.minifyHtml({
+            empty: true,
+            spare: true,
+            quotes: true
+        }))
+        .pipe(gulp.dest(config.target.index));
+});
+
 gulp.task('appPartials', function () {
     return gulp.src(config.appFiles.partials)
         .pipe(plugins.changed(config.target.js))
@@ -92,6 +102,7 @@ gulp.task('vendorCode', function () {
 });
 
 gulp.task('watch', ['jshint', 'build'], function () {
+    gulp.watch(config.appFiles.index, ['appIndex']);
     gulp.watch(config.appFiles.partials, ['appPartials']);
     gulp.watch(config.appFiles.code, ['appCode', 'jshint']);
     gulp.watch(config.appFiles.styleBase + '**', ['appLess']);

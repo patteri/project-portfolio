@@ -9,6 +9,7 @@ module.exports = {
         js: targetBase + '/js',
         lib: path.join(targetBase, 'js', 'lib'),
         css: path.join(targetBase, 'css'),
+        index: targetBase,
         partials: path.join(targetBase, 'partials'),
         assets: targetBase
     },
@@ -30,11 +31,15 @@ module.exports = {
             './bower_components/angular-translate-handler-log/angular-translate-handler-log.min.js',
             './bower_components/angular-ui-router/release/angular-ui-router.min.js',
             './bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js',
+            './bower_components/lodash/dist/lodash.min.js',
             "./vendor/**/*.js"
         ]
     },
 
     appFiles: {
+        index: [
+            "index.html"
+        ],
         code: [
             "./app/**/*.js"
         ],

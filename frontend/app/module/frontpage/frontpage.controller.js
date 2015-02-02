@@ -6,7 +6,7 @@ angular.module('app.frontpage.controller', [])
             $stateProvider
                 .state('main.frontpage', {
                     url: '/home',
-                    templateUrl: '_public/frontend/partials/frontpage/frontpage.html',
+                    templateUrl: 'partials/frontpage/frontpage.html',
                     controller: 'FrontpageController'
                 });
         }])

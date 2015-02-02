@@ -6,25 +6,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="author" content="Petteri Roponen"/>
     <title>Petteri Roponen Homepage</title>
-    <link rel="stylesheet" href="_public/frontend/css/app.css">
+    <link rel="stylesheet" href="css/app.css">
 
     <!--[if lte IE 7]>
-    <script src="_public/frontend/js/lib/json3.min.js"></script>
+    <script src="js/lib/json3.min.js"></script>
     <![endif]-->
 
     <!--[if lt IE 9]>
-    <script src="_public/frontend/js/lib/es5-shim.min.js"></script>
+    <script src="js/lib/es5-shim.min.js"></script>
     <![endif]-->
 
-    <script src="_public//frontend/js/lib/angular-loader.min.js"></script>
-    <script src="_public//frontend/js/lib/script.min.js"></script>
+    <script src="js/lib/angular-loader.min.js"></script>
+    <script src="js/lib/script.min.js"></script>
 
     <script>
         // load all of the dependencies asynchronously.
         $script([
-            '_public/frontend/js/vendor.min.js',
-            '_public/frontend/js/app.min.js',
-            '_public/frontend/js/partials.js'
+            'js/vendor.min.js',
+            'js/app.min.js',
+            'js/partials.js'
         ], function() {
             // when all is done, execute bootstrap angular application
             angular.bootstrap(document, ['app']);

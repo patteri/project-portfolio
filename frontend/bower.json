@@ -28,6 +28,7 @@
         "angular-ui-router": "~0.2.11",
         "es5-shim": "~4.0.3",
         "json3": "~3.3.2",
-        "script.js": "~2.5.7"
+        "script.js": "~2.5.7",
+        "lodash": "2.4.1"
     }
 }

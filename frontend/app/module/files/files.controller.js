@@ -6,7 +6,7 @@ angular.module('app.files.controller', [])
             $stateProvider
                 .state('main.files', {
                     url: '/cv',
-                    templateUrl: '_public/frontend/partials/files/files.html',
+                    templateUrl: 'partials/files/files.html',
                     controller: 'FilesController'
                 });
         }])

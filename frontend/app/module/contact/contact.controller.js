@@ -6,7 +6,7 @@ angular.module('app.contact.controller', [])
             $stateProvider
                 .state('main.contact', {
                     url: '/contact',
-                    templateUrl: '_public/frontend/partials/contact/contact.html',
+                    templateUrl: 'partials/contact/contact.html',
                     controller: 'ContactController'
                 });
         }])

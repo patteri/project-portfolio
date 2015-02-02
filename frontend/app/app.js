@@ -30,7 +30,7 @@ var App = angular.module('app', [
     .config(['$translateProvider', function ($translateProvider) {
         // Initialize angular-translate
         $translateProvider.useStaticFilesLoader({
-            prefix: '_public/frontend/i18n/',
+            prefix: 'i18n/',
             suffix: '.json'
         });
 
@@ -42,6 +42,6 @@ var App = angular.module('app', [
         $stateProvider.state('main', {
             abstract: true,
             url: '',
-            templateUrl: '_public/frontend/partials/main.html'
+            templateUrl: 'partials/main.html'
         });
     }]);
