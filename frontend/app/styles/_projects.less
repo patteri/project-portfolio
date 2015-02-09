@@ -1,5 +1,89 @@
+.project-filters {
+  margin-bottom: 10px;
+
+  .filter-header {
+    font-weight: bold;
+  }
+
+  .show-more-link {
+    margin-left: 5px;
+    text-decoration: none;
+  }
+}
+
 .project-item {
-  margin-top: 15px;
+  margin-bottom: 15px;
   padding: 5px;
-  background-color: @gray-lighter;
+  border: 1px solid @gray-lighter;
+  border-radius: 15px;
+
+  .project-header-tag {
+    font-size: @font-size-base;
+    margin-left: 20px;
+  }
+
+  .project-description {
+    display: block;
+    margin: 5px 0px;
+  }
+
+  .project-img-thumb {
+    max-height: 80px;
+  }
+
+  .thumb-list-img {
+    margin: 7px 7px 0px 0px;
+  }
+}
+
+.btn-collapse {
+  float: right;
+  margin: 10px 10px 0px 0px;
+  font-size: 1.2em;
+  color: @gray-light;
+  background-color: transparent;
+  background-repeat: no-repeat;
+  border: none;
+  cursor: pointer;
+  overflow: hidden;
+  outline: none;
+}
+
+.tag {
+  border-radius: 10px;
+  padding: 1px 4px;
+  white-space: pre;
+  font-weight: bold;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+
+  &.clickable {
+    cursor: pointer;
+  }
+
+  &.type-tag {
+    border: 2px solid lightgreen;
+
+    &.selected {
+      background-color: lightgreen;
+    }
+  }
+
+  &.project-tag {
+    border: 2px solid lightblue;
+
+    &.selected {
+      background-color: lightblue;
+    }
+  }
+
+  &.tag-list-tag {
+    margin: 5px 0px 0px 10px;
+    word-wrap: normal;
+    display: inline-block;
+  }
 }

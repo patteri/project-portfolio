@@ -1,19 +1,46 @@
 <div>
-    <div ng-repeat="project in projects" class="project-item">
-        <h4>{{project.name}} ({{project.time}})</h4>
-        <dl class="dl-horizontal">
-            <dt>Type</dt>
-            <dd>{{project.type}}</dd>
-            <dt>Description</dt>
-            <dd>{{project.description}}</dd>
-            <dt>Tags</dt>
-            <dd>{{getTagString(project.tags)}}</dd>
-            <dt>Link</dt>
-            <dd><a href="{{project.link.url}}" target="_blank">{{project.link.name}}</a></dd>
-        </dl>
+    <div class="project-filters">
         <div class="row">
-            <div ng-repeat="image in project.images" class="col-lg-4 col-md-6 col-sm-6">
-                <a href="images/{{image}}.png"><img src="images/{{image}}_thumb.png" alt="Project image" height="180"></a>
+            <div class="col-xs-12">
+                <span class="filter-header">Project types:</span><span ng-repeat="type in projectTypes" class="tag type-tag tag-list-tag clickable" ng-class="{'selected': type.selected}" ng-click="type.selected = !type.selected">{{type.name}} <span class="text-normal">({{type.count}})</span></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12 hidden-xs">
+                <span class="filter-header">Tags:</span><span ng-repeat="tag in tags" class="tag project-tag tag-list-tag clickable" ng-class="{'selected': tag.selected}" ng-click="tag.selected = !tag.selected">{{tag.name}} <span class="text-normal">({{tag.count}})</span></span>
+            </div>
+            <div class="col-xs-12 visible-xs" ng-init="showAllTags = false">
+                <span class="filter-header">Tags:</span><span ng-repeat="tag in tags | limitTo: showAllTags ? 999 : 10" class="tag project-tag tag-list-tag clickable" ng-class="{'selected': tag.selected}" ng-click="tag.selected = !tag.selected">{{tag.name}} <span class="text-normal">({{tag.count}})</span></span>
+                <a href="" ng-show="tags.length > 10" class="show-more-link" ng-click="showAllTags = !showAllTags">{{showAllTags ? 'show less...' : 'show more...'}}</a>
+            </div>
+        </div>
+    </div>
+    <div ng-repeat="project in projects | filter: projectFilter" class="project-item">
+        <span class="btn-collapse glyphicon" ng-class="{'glyphicon-collapse-down': !project.show, 'glyphicon-collapse-up': project.show}" ng-click="project.show = !project.show"></span>
+        <h4><span class="text-bold">{{project.name}}</span> ({{project.time}})<span class="tag type-tag project-header-tag selected">{{project.type}}</span></h4>
+
+        <div ng-show="project.images.length > 0">
+            <div class="row">
+                <div class="col-md-2 col-sm-2 hidden-xs">
+                    <img class="img-responsive project-img-thumb" src="images/{{project.images[0]}}_thumb.png" alt="Project image">
+                </div>
+                <div class="col-md-10 col-sm-10 col-xs-12">
+                    <span class="project-description text-pre">{{project.show ? project.description : project.shortDescription}}</span>
+                    <a ng-show="project.link.url" href="{{project.link.url}}" target="_blank">{{project.link.name}}</a>
+                    <span ng-repeat="tag in project.tags" class="tag project-tag tag-list-tag selected">{{tag}}</span>
+                </div>
+            </div>
+            <div collapse="!project.show">
+                <a ng-repeat="image in project.images" href="images/{{image}}.png"><img class="thumb-list-img" src="images/{{image}}_thumb.png" alt="Project image" height="160"></a>
+            </div>
+        </div>
+        <div ng-show="project.images.length == 0">
+            <div class="row">
+                <div class="col-xs-12">
+                    <span class="project-description text-pre">{{project.show ? project.description : project.shortDescription}}</span>
+                    <a ng-show="project.link.url" href="{{project.link.url}}" target="_blank">{{project.link.name}}</a>
+                    <span ng-repeat="tag in project.tags" class="tag project-tag tag-list-tag selected">{{tag}}</span>
+                </div>
             </div>
         </div>
     </div>
