@@ -16,7 +16,7 @@ var App = angular.module('app', [
         'common.services.contentService',
 
         // Controllers
-        'app.frontpage.controller', 'app.files.controller', 'app.projects.controller', 'app.contact.controller'
+        'app.frontpage.controller', 'app.files.controller', 'app.projects.controller'
     ])
     .run(['$state', function ($state) {
         $state.go('main.frontpage');

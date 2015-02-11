@@ -5,12 +5,7 @@ angular.module('app.frontpage.controller', [])
         function ($stateProvider) {
             $stateProvider
                 .state('main.frontpage', {
-                    url: '/home',
-                    templateUrl: 'partials/frontpage/frontpage.html',
-                    controller: 'FrontpageController'
+                    url: '/about',
+                    templateUrl: 'partials/frontpage/frontpage.html'
                 });
-        }])
-    .controller('FrontpageController', ['$scope',
-        function ($scope) {
-
         }]);

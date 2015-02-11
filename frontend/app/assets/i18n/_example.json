@@ -10,21 +10,22 @@
         }
     },
     "frontpage": {
-        "header": "",
-        "text": "",
-        "header2": "",
-        "text2": ""
+        "about": {
+            "header": "",
+            "text": ""
+        },
+        "contact": {
+            "header": "",
+            "info": "Email",
+            "text": "<a href=\"mailto:email.address@mail.com\">email.address@mail.com</a>",
+            "info2": "Phone",
+            "text2": "<a href=\"tel:1234567890\">1234567890</a>",
+            "info3": "Address",
+            "text3": "Street\nPostal code\nCity\nCoutry"
+        }
     },
     "files": {
         "header": "Files",
         "header2": "Links"
-    },
-    "contact": {
-        "info": "Email",
-        "text": "<a href=\"mailto:email.address@mail.com\">email.address@mail.com</a>",
-        "info2": "Phone",
-        "text2": "<a href=\"tel:1234567890\">1234567890</a>",
-        "info3": "Address",
-        "text3": "Street\nPostal code\nCity\nCoutry"
     }
 }
