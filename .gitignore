@@ -54,7 +54,7 @@ Thumbs.db
 *.eml
 
 # Node.js build tooling
-frontend/node_modules
+node_modules
 
 # JS assets managed by Bower
 frontend/bower_components
