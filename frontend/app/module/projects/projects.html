@@ -23,13 +23,13 @@
         </div>
     </div>
     <div ng-repeat="project in projects | filter: projectFilter" class="project-item">
-        <span ng-show="project.images.length > 0 || project.shortDescription != project.description" class="btn-collapse glyphicon" ng-class="{'glyphicon-collapse-down': !project.show, 'glyphicon-collapse-up': project.show}" ng-click="project.show = !project.show"></span>
+        <span ng-show="project.images.length > 0 || project.shortDescription != project.description" class="btn-collapse glyphicon glyphicon-collapse-down" ng-class="{'rotate-180': project.show}" ng-click="project.show = !project.show"></span>
         <h4><span class="text-bold">{{project.name}}</span> ({{project.time}})<span class="tag type-tag project-header-tag selected">{{project.type}}</span></h4>
 
         <div ng-show="project.images.length > 0">
             <div class="row">
                 <div class="col-md-2 col-sm-2 hidden-xs">
-                    <img class="img-responsive project-img-thumb" src="images/{{project.images[0]}}_thumb.png" alt="Project image" ng-click="project.show = !project.show">
+                    <img class="img-responsive project-img-thumb clickable-img" src="{{getPathToImageThumb(project.images[0])}}" alt="Project image" ng-click="showImage(getPathToImage(project.images[0]))">
                 </div>
                 <div class="col-md-10 col-sm-10 col-xs-12">
                     <span class="project-description text-pre">{{project.show ? project.description : project.shortDescription}}</span>
@@ -38,7 +38,7 @@
                 </div>
             </div>
             <div collapse="!project.show">
-                <a ng-repeat="image in project.images" href="images/{{image}}.png"><img class="thumb-list-img" src="images/{{image}}_thumb.png" alt="Project image" height="160"></a>
+                <img ng-repeat="image in project.images" class="thumb-list-img clickable-img" src="{{getPathToImageThumb(image)}}" alt="Project image" height="160" ng-click="showImage(getPathToImage(image))">
             </div>
         </div>
         <div ng-show="project.images.length == 0">

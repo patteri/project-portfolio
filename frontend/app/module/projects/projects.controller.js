@@ -10,8 +10,8 @@ angular.module('app.projects.controller', [])
                     controller: 'ProjectsController'
                 });
         }])
-    .controller('ProjectsController', ['$scope', 'Contents',
-        function ($scope, Contents) {
+    .controller('ProjectsController', ['$scope', '$modal', 'Contents',
+        function ($scope, $modal, Contents) {
             $scope.projects = Contents.projects;
             $scope.projectTypes = [];
             $scope.tags = null;
@@ -56,4 +56,24 @@ angular.module('app.projects.controller', [])
                 }
                 return true;
             }
+
+            $scope.getPathToImage = function (imgName) {
+                return "images/" + imgName + ".png";
+            };
+
+            $scope.getPathToImageThumb = function (imgName) {
+                return "images/" + imgName + "_thumb.png";
+            };
+
+            $scope.showImage = function (imageSource) {
+                $modal.open({
+                    templateUrl: 'partials/common/templates/image-modal/image-modal.html',
+                    controller: 'ImageModalController',
+                    resolve: {
+                        imageSource: function () {
+                            return imageSource;
+                        }
+                    }
+                });
+            };
         }]);
