@@ -1,56 +1,31 @@
 var http = require('http');
-var fs = require('fs');
+var express = require('express');
 var path = require('path');
-var mime = require('mime');
-var cache = {};
 
-var PublicFilePath = "./frontend/_public/frontend";
+var PublicFilePath = "/../frontend/_public/frontend";
 
-http.createServer(function (req, res) {
-    var filePath = false;
+var app = express();
 
-    if (req.url == '/') {
-        filePath = PublicFilePath + "/index.html";
-    }
-    else {
-        filePath = PublicFilePath + req.url;
-    }
-    serveStatic(res, cache, filePath);
-}).listen(3000, function () {
-    console.log("Server started in port 3000.");
+// Configure app
+app.set('port', 3000);
+app.use(express.static(path.join(__dirname + PublicFilePath)));
+
+// Error handling
+app.use(function(req, res, next) {
+    var err = new Error('Not Found');
+    err.status = 404;
+    next(err);
+});
+app.use(function(err, req, res, next) {
+    var status = err.status || 500;
+    res.status(status).json({
+        status: status,
+        error: err.message
+    });
 });
 
-function serveStatic(res, cache, absPath) {
-    if (cache[absPath]) {
-        sendFile(res, absPath, cache[absPath]);
-    }
-    else {
-        fs.exists(absPath, function (exists) {
-            if (exists) {
-                fs.readFile(absPath, function (err, data) {
-                    if (err) {
-                        send404(res);
-                    }
-                    else {
-                        cache[absPath] = data;
-                        sendFile(res, absPath, data);
-                    }
-                });
-            }
-            else {
-                send404(res);
-            }
-        });
-    }
-}
+http.createServer(app).listen(app.get('port'), function () {
+    console.log("Express server listening on port " + app.get('port'));
+});
 
-function sendFile (res, filePath, fileContents) {
-    res.writeHead(200, {'Content-Type': mime.lookup(path.basename(filePath))});
-    res.end(fileContents);
-}
-
-function send404 (res) {
-    res.writeHead(404, {'Content-Type': 'text/plain'});
-    res.write('Error 404: resource not found.');
-    res.end();
-}
+module.exports = app;
