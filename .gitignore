@@ -67,5 +67,5 @@ frontend/app/assets/i18n/*
 !frontend/app/assets/i18n/_example.json
 frontend/app/assets/files/*
 frontend/app/assets/images/*
-frontend/app/module/common/contents/*
-!frontend/app/module/common/contents/_contents.service.js
+backend/models/*
+!backend/models/_static.js

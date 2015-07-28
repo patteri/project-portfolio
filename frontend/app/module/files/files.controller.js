@@ -7,11 +7,19 @@ angular.module('app.files.controller', [])
                 .state('main.files', {
                     url: '/cv',
                     templateUrl: 'partials/files/files.html',
-                    controller: 'FilesController'
+                    controller: 'FilesController',
+                    resolve: {
+                        files: ['Files', function (Files) {
+                            return Files.query().$promise;
+                        }],
+                        links: ['Links', function (Links) {
+                            return Links.query().$promise;
+                        }]
+                    }
                 });
         }])
-    .controller('FilesController', ['$scope', 'Contents',
-        function ($scope, Contents) {
-            $scope.files = Contents.files;
-            $scope.links = Contents.links;
+    .controller('FilesController', ['$scope', 'files', 'links',
+        function ($scope, files, links) {
+            $scope.files = files;
+            $scope.links = links;
         }]);

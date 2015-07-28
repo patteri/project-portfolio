@@ -1,6 +1,9 @@
 var http = require('http');
 var express = require('express');
 var path = require('path');
+var files = require('./routes/files');
+var links = require('./routes/links');
+var projects = require('./routes/projects');
 
 var PublicFilePath = "/../frontend/_public/frontend";
 
@@ -9,6 +12,11 @@ var app = express();
 // Configure app
 app.set('port', 3000);
 app.use(express.static(path.join(__dirname + PublicFilePath)));
+
+// Routes
+app.use(files);
+app.use(links);
+app.use(projects);
 
 // Error handling
 app.use(function(req, res, next) {

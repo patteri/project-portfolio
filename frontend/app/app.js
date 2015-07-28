@@ -13,7 +13,7 @@ var App = angular.module('app', [
         'app.partials',
 
         // Common
-        'common.services.contentService', 'common.templates.imageModal',
+        'api.services', 'common.templates.imageModal',
 
         // Controllers
         'app.frontpage.controller', 'app.files.controller', 'app.projects.controller'

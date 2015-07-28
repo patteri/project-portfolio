@@ -7,12 +7,17 @@ angular.module('app.projects.controller', [])
                 .state('main.projects', {
                     url: '/projects',
                     templateUrl: 'partials/projects/projects.html',
-                    controller: 'ProjectsController'
+                    controller: 'ProjectsController',
+                    resolve: {
+                        projects: ['Projects', function (Projects) {
+                            return Projects.query().$promise;
+                        }]
+                    }
                 });
         }])
-    .controller('ProjectsController', ['$scope', '$modal', 'Contents',
-        function ($scope, $modal, Contents) {
-            $scope.projects = Contents.projects;
+    .controller('ProjectsController', ['$scope', '$modal', 'projects',
+        function ($scope, $modal, projects) {
+            $scope.projects = projects;
             $scope.projectTypes = [];
             $scope.tags = null;
 
@@ -20,7 +25,7 @@ angular.module('app.projects.controller', [])
             $scope.projectFilter = projectFilter;
 
             // Construct project types
-            var types = _.uniq(_.map(Contents.projects, 'type'));
+            var types = _.uniq(_.map(projects, 'type'));
             _.each(types, function (type) {
                 $scope.projectTypes.push({name: type, count: _.filter($scope.projects, {'type': type}).length, selected: false});
             });
