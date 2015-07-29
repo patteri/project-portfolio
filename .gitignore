@@ -69,3 +69,4 @@ frontend/app/assets/files/*
 frontend/app/assets/images/*
 backend/models/*
 !backend/models/_static.js
+mongod.bat

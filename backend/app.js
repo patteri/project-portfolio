@@ -1,6 +1,7 @@
 var http = require('http');
 var express = require('express');
 var path = require('path');
+var db = require('monk')('localhost/project-portfolio')
 var files = require('./routes/files');
 var links = require('./routes/links');
 var projects = require('./routes/projects');
@@ -12,6 +13,12 @@ var app = express();
 // Configure app
 app.set('port', 3000);
 app.use(express.static(path.join(__dirname + PublicFilePath)));
+
+// Make db accessible in routers
+app.use(function(req, res, next){
+    req.db = db;
+    next();
+});
 
 // Routes
 app.use(files);

@@ -1,9 +1,13 @@
 var express = require('express');
 var router = express.Router();
-var staticModels = require('../models/static');
 
 router.get('/api/files', function(req, res) {
-    res.json(staticModels.files);
+    var db = req.db;
+    var collection = db.get('files');
+    collection.find({}, {}, function(err, data) {
+        if (err) throw err;
+        res.json(data);
+    });
 });
 
 module.exports = router;
