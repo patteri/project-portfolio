@@ -10,6 +10,12 @@ var staticModels = require('./models/static');
 client.open(function (err) {
     if (err) throw err;
 
+    client.collection('users', function (err, collection) {
+        if (err) throw err;
+
+        collection.insert(staticModels.users);
+    });
+
     client.collection('files', function (err, collection) {
         if (err) throw err;
 

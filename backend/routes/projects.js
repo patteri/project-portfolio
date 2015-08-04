@@ -10,4 +10,9 @@ router.get('/api/projects', function(req, res) {
     });
 });
 
+router.post('/api/admin/projects', function (req, res) {
+    // TODO
+    res.json({"message": "TODO: add project"});
+});
+
 module.exports = router;

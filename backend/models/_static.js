@@ -1,6 +1,10 @@
 // Example static models
 // Remove '_' from file name to use this
 
+exports.users = [
+    {username: "username", password: "password"}
+];
+
 exports.files = [
     {name: "Visible file name", filename: "file name in frontend/app/assets/files folder"}
 ];

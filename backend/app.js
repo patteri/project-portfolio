@@ -1,10 +1,13 @@
 var http = require('http');
 var express = require('express');
+var bodyParser = require('body-parser');
 var path = require('path');
 var db = require('monk')('localhost/project-portfolio')
 var files = require('./routes/files');
 var links = require('./routes/links');
 var projects = require('./routes/projects');
+var login = require('./routes/login');
+var auth = require('./authentication/authentication');
 
 var PublicFilePath = "/../frontend/_public/frontend";
 
@@ -12,7 +15,13 @@ var app = express();
 
 // Configure app
 app.set('port', 3000);
+app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname + PublicFilePath)));
+app.use(function(req, res, next) {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type, Authorization');
+    next();
+});
 
 // Make db accessible in routers
 app.use(function(req, res, next){
@@ -20,10 +29,14 @@ app.use(function(req, res, next){
     next();
 });
 
+// Authentication required for admin APIs
+app.use('/api/admin', auth.authenticate);
+
 // Routes
 app.use(files);
 app.use(links);
 app.use(projects);
+app.use(login);
 
 // Error handling
 app.use(function(req, res, next) {
