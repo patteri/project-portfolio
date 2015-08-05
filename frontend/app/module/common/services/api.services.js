@@ -1,6 +1,9 @@
 'use strict';
 
-angular.module('api.services', [])
+angular.module('common.api.services', [])
+    .factory('Login', ['$resource', function ($resource) {
+        return $resource('api/login', {});
+    }])
     .factory('Files', ['$resource', function ($resource) {
         return $resource('api/files', {}, {
             query: {

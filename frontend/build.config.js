@@ -32,6 +32,7 @@ module.exports = {
             './bower_components/angular-ui-router/release/angular-ui-router.min.js',
             './bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js',
             './bower_components/lodash/dist/lodash.min.js',
+            './bower_components/ngstorage/ngStorage.min.js',
             "./vendor/**/*.js"
         ]
     },

@@ -8,15 +8,16 @@ var App = angular.module('app', [
         'pascalprecht.translate',
         'ui.bootstrap',
         'ui.router',
+        'ngStorage',
 
         // Pre-cached partials
         'app.partials',
 
         // Common
-        'api.services', 'common.templates.imageModal',
+        'common.api.services', 'common.auth.service', 'common.controllers', 'common.templates.imageModal',
 
         // Controllers
-        'app.frontpage.controller', 'app.files.controller', 'app.projects.controller'
+        'app.frontpage.controller', 'app.files.controller', 'app.projects.controller', 'app.login.controller', 'app.management.controller'
     ])
     .run(['$state', function ($state) {
         $state.go('main.frontpage');
@@ -37,6 +38,9 @@ var App = angular.module('app', [
         $translateProvider.preferredLanguage('en');
         $translateProvider.useCookieStorage();
         $translateProvider.useMissingTranslationHandlerLog();
+    }])
+    .config(['$httpProvider', function ($httpProvider) {
+        $httpProvider.interceptors.push('TokenInterceptor');
     }])
     .config(['$stateProvider', function ($stateProvider) {
         $stateProvider.state('main', {

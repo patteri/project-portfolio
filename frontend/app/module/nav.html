@@ -1,5 +1,6 @@
-<ul class="nav navbar-nav">
+<ul class="nav navbar-nav" ng-controller="NavController">
     <li ui-sref-active="active"><a ui-sref="main.frontpage" translate="global.menu.frontpage"></a></li>
     <li ui-sref-active="active"><a ui-sref="main.projects" translate="global.menu.projects"></a></li>
     <li ui-sref-active="active"><a ui-sref="main.files" translate="global.menu.files"></a></li>
+    <li ng-if="auth.isAuthenticated()" ui-sref-active="active"><a ui-sref="main.management">Manage</a></li>
 </ul>
