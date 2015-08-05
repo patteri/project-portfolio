@@ -1,7 +1,7 @@
 Project Portfolio
 =================
 
-Project portfolio is a template project for project portfolios, containing:
+This is a template project for creating project portfolios, containing:
 
 - responsive AngularJS single page app frontend
 - Node.js + MongoDB backend
