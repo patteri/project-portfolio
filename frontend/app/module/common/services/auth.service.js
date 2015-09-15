@@ -19,7 +19,7 @@ angular.module('common.auth.service', [])
 
         function isAuthenticated () {
             if (!authenticated) {
-                authenticated = $sessionStorage.token && $sessionStorage.user;
+                authenticated = $sessionStorage.token && $sessionStorage.token.expires > Date.now() && $sessionStorage.user;
             }
             return authenticated;
         }
@@ -48,7 +48,6 @@ angular.module('common.auth.service', [])
             request: function (config) {
                 config.headers = config.headers || {};
                 if ($sessionStorage.token) {
-                    // TODO: check expiration
                     config.headers['X-Access-Token'] = $sessionStorage.token.token;
                 }
                 return config;

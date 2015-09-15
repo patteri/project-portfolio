@@ -1,5 +1,5 @@
 <div class="wrapper">
-    <nav class="navbar navbar-default navbar-static-top" role="navigation">
+    <nav class="navbar navbar-default navbar-static-top" role="navigation" ng-controller="NavController">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" ng-init="navCollapsed = true" ng-click="navCollapsed = !navCollapsed">
@@ -17,6 +17,18 @@
 
             <div class="navbar-collapse collapse" ng-class="!navCollapsed && 'in'">
                 <div ng-include="'partials/nav.html'"></div>
+                <ul class="nav navbar-nav navbar-right" ng-if="auth.isAuthenticated()">
+                    <li dropdown>
+                        <a dropdown-toggle>
+                            <span>{{auth.getUser().username}} <b class="caret"></b></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="" ng-click="logout()"><span class="glyphicon glyphicon-log-out"></span>&nbsp;<span>Logout</span></a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
             </div>
         </div>
     </nav>
