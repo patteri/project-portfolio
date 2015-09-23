@@ -25,6 +25,20 @@ angular.module('common.api.services', [])
             query: {
                 method: 'GET',
                 isArray: true
+            },
+            save: {
+                url: 'api/admin/projects',
+                method: 'POST'
+            },
+            update: {
+                url: 'api/admin/projects/:id',
+                method: 'PUT',
+                params: {id: '@id'}
+            },
+            delete: {
+                url: 'api/admin/projects/:id',
+                method: 'DELETE',
+                params: {id: '@id'}
             }
         });
     }]);
