@@ -16,18 +16,18 @@ angular.module('app.management.controller', [])
                     }
                 });
         }])
-    .controller('ManagementController', ['$scope', 'Projects', 'projects',
-        function ($scope, Projects, projects) {
+    .controller('ManagementController', ['$scope', 'Upload', 'Projects', 'projects',
+        function ($scope, Upload, Projects, projects) {
             $scope.projects = projects;
             var orgProject = null;
             $scope.selectedProject = null;
-            $scope.inputs = {tag: null, file: null};
 
             // Scope methods
             $scope.selectProject = selectProject;
             $scope.createNewProject = createNewProject;
             $scope.removeItem = removeItem;
             $scope.addItem = addItem;
+            $scope.uploadImage = uploadImage;
             $scope.save = save;
             $scope.deleteProject = deleteProject;
             $scope.cancel = cancel;
@@ -47,6 +47,19 @@ angular.module('app.management.controller', [])
 
             function removeItem (list, item) {
                 _.remove(list, function (item2) { return item == item2; });
+            }
+
+            function uploadImage (file) {
+                if (file) {
+                    Upload.upload({
+                        url: '/api/admin/projects/image',
+                        file: file
+                    }).success(function (data, status, headers, config) {
+                        addItem($scope.selectedProject.images, data.file);
+                    }).error(function (data, status) {
+                        console.log('Image upload failed: ' + status);
+                    });
+                }
             }
 
             function save () {

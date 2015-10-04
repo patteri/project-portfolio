@@ -9,6 +9,7 @@ var App = angular.module('app', [
         'ui.bootstrap',
         'ui.router',
         'ngStorage',
+        'ngFileUpload',
 
         // Pre-cached partials
         'app.partials',

@@ -63,11 +63,7 @@ angular.module('app.projects.controller', [])
             }
 
             $scope.getPathToImage = function (imgName) {
-                return "images/" + imgName + ".png";
-            };
-
-            $scope.getPathToImageThumb = function (imgName) {
-                return "images/" + imgName + "_thumb.png";
+                return "images/" + imgName;
             };
 
             $scope.showImage = function (imageSource) {
