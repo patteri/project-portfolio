@@ -21,6 +21,7 @@ angular.module('app.management.controller', [])
             $scope.projects = projects;
             var orgProject = null;
             $scope.selectedProject = null;
+            $scope.datepicker = { startTime: {open: false}, endTime: {open: false} };
 
             // Scope methods
             $scope.selectProject = selectProject;
@@ -31,6 +32,7 @@ angular.module('app.management.controller', [])
             $scope.save = save;
             $scope.deleteProject = deleteProject;
             $scope.cancel = cancel;
+            $scope.openDatePicker = openDatePicker;
 
             function selectProject (project) {
                 orgProject = project;
@@ -38,7 +40,7 @@ angular.module('app.management.controller', [])
             }
 
             function createNewProject () {
-                selectProject({name: null, time: null, type: null, shortDescription: null, description: null, tags: [], link: null, images: []});
+                selectProject({name: null, startTime: null, endTime: null, type: null, shortDescription: null, description: null, tags: [], link: null, images: []});
             }
 
             function addItem (list, item) {
@@ -63,6 +65,14 @@ angular.module('app.management.controller', [])
             }
 
             function save () {
+                // Convert Date objects to JSON strings
+                if ($scope.selectedProject.startTime && typeof $scope.selectedProject.startTime === "object") {
+                    $scope.selectedProject.startTime = $scope.selectedProject.startTime.toJSON();
+                }
+                if ($scope.selectedProject.endTime && typeof $scope.selectedProject.endTime === "object") {
+                    $scope.selectedProject.endTime = $scope.selectedProject.endTime.toJSON();
+                }
+
                 if ($scope.selectedProject._id) {
                     Projects.update({id: $scope.selectedProject._id}, $scope.selectedProject, function () {
                         var index = _.findIndex($scope.projects, {_id: $scope.selectedProject._id});
@@ -94,5 +104,11 @@ angular.module('app.management.controller', [])
 
             function cancel () {
                 selectProject(orgProject);
+            }
+
+            function openDatePicker ($event, picker) {
+                $event.preventDefault();
+                $event.stopPropagation();
+                picker.open = !picker.open;
             }
         }]);

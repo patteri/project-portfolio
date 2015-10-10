@@ -20,9 +20,14 @@ angular.module('app.projects.controller', [])
             $scope.projects = projects;
             $scope.projectTypes = [];
             $scope.tags = null;
+            $scope.sortOrders = [{displayName: 'time', sort: ['-startTime']}, {displayName: 'type', sort: ['type', '-startTime']}];
+            $scope.selectedOrder = $scope.sortOrders[0];
 
             // Scope methods
             $scope.projectFilter = projectFilter;
+            $scope.getTime = getTime;
+            $scope.getPathToImage = getPathToImage;
+            $scope.showImage = showImage;
 
             // Construct project types
             var types = _.uniq(_.map(projects, 'type'));
@@ -62,11 +67,29 @@ angular.module('app.projects.controller', [])
                 return true;
             }
 
-            $scope.getPathToImage = function (imgName) {
-                return "images/" + imgName;
-            };
+            function getTime (project) {
+                var time = "";
+                if (project.startTime) {
+                    var startTime = project.startTime.split('-')[0];
+                    time += startTime;
+                    if (project.endTime) {
+                        var endTime = project.endTime.split('-')[0];
+                        if (startTime != endTime) {
+                            time += " - " + endTime;
+                        }
+                    }
+                    else {
+                        time += " - ";
+                    }
+                }
+                return time;
+            }
 
-            $scope.showImage = function (imageSource) {
+            function getPathToImage (imgName) {
+                return "images/" + imgName;
+            }
+
+            function showImage (imageSource) {
                 $modal.open({
                     templateUrl: 'partials/common/templates/image-modal/image-modal.html',
                     controller: 'ImageModalController',
@@ -76,5 +99,5 @@ angular.module('app.projects.controller', [])
                         }
                     }
                 });
-            };
+            }
         }]);

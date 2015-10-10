@@ -6,14 +6,14 @@
                     <thead>
                         <tr>
                             <th>Name</th>
-                            <th>Time</th>
+                            <th>Start time</th>
                             <th>Type</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr ng-repeat="project in projects" ng-click="selectProject(project)" ng-class="{'active': project._id == selectedProject._id}">
+                        <tr ng-repeat="project in projects | orderBy:['type', '-startTime']" ng-click="selectProject(project)" ng-class="{'active': project._id == selectedProject._id}">
                             <td>{{project.name}}</td>
-                            <td>{{project.time}}</td>
+                            <td>{{project.startTime | date:'yyyy'}}</td>
                             <td>{{project.type}}</td>
                         </tr>
                     </tbody>
@@ -33,15 +33,34 @@
         <form name="projectForm" class="margin-top-10">
             <div class="row form-group">
                 <div class="col-xs-12">
-                    <input type="text" class="form-control input-header" ng-model="selectedProject.name" required>
+                    <input type="text" class="form-control input-header" ng-model="selectedProject.name" placeholder="Project name" required>
                 </div>
             </div>
             <div class="row form-group">
                 <div class="col-md-2">
                     <label>Time</label>
                 </div>
-                <div class="col-md-10">
-                    <input type="text" class="form-control" ng-model="selectedProject.time">
+                <div class="col-md-1 col-xs-2">
+                    <label>Start</label>
+                </div>
+                <div class="col-md-4 col-xs-10">
+                    <p class="input-group">
+                        <input type="text" class="form-control" datepicker-popup="{{'d.M.yyyy'}}" show-button-bar="false" ng-model="selectedProject.startTime" is-open="datepicker.startTime.open" close-text="Close" />
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-default" ng-click="openDatePicker($event, datepicker.startTime)"><i class="glyphicon glyphicon-calendar"></i></button>
+                        </span>
+                    </p>
+                </div>
+                <div class="col-md-1 col-xs-2">
+                    <label>End</label>
+                </div>
+                <div class="col-md-4 col-xs-10">
+                    <p class="input-group">
+                        <input type="text" class="form-control" datepicker-popup="{{'d.M.yyyy'}}" show-button-bar="false" ng-model="selectedProject.endTime" is-open="datepicker.endTime.open" close-text="Close" />
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-default" ng-click="openDatePicker($event, datepicker.endTime)"><i class="glyphicon glyphicon-calendar"></i></button>
+                        </span>
+                    </p>
                 </div>
             </div>
             <div class="row form-group">
@@ -76,13 +95,13 @@
                     <label>Name</label>
                 </div>
                 <div class="col-md-3 col-xs-10">
-                    <input type="text" class="form-control" ng-model="selectedProject.link.name">
+                    <p><input type="text" class="form-control" ng-model="selectedProject.link.name"></p>
                 </div>
                 <div class="col-md-1 col-xs-2">
                     <label>URL</label>
                 </div>
                 <div class="col-md-5 col-xs-10">
-                    <input type="text" class="form-control" ng-model="selectedProject.link.url">
+                    <p><input type="text" class="form-control" ng-model="selectedProject.link.url"></p>
                 </div>
             </div>
             <div class="row form-group">
@@ -100,10 +119,10 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-3 col-xs-5">
+                        <div class="col-sm-4 col-xs-8">
                             <input type="text" class="form-control" ng-model="newTag">
                         </div>
-                        <div class="col-md-9 col-xs-7">
+                        <div class="col-sm-8 col-xs-4">
                             <button type="button" class="btn btn-primary" ng-click="addItem(selectedProject.tags, newTag); newTag = null;">Add</button>
                         </div>
                     </div>

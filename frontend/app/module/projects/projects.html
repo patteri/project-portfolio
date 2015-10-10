@@ -21,10 +21,16 @@
                 </div>
             </div>
         </div>
+        <div class="row margin-top-10">
+            <div class="col-xs-12">
+                <span class="filter-header">Order by:</span>
+                <select class="form-control select-sort" ng-model="selectedOrder" ng-options="so as so.displayName for so in sortOrders"></select>
+            </div>
+        </div>
     </div>
-    <div ng-repeat="project in projects | filter: projectFilter" class="project-item">
+    <div ng-repeat="project in projects | filter: projectFilter | orderBy: selectedOrder.sort" class="project-item">
         <span ng-show="project.images.length > 0 || project.shortDescription != project.description" class="btn-collapse glyphicon glyphicon-collapse-down" ng-class="{'rotate-180': project.show}" ng-click="project.show = !project.show"></span>
-        <h4><span class="text-bold">{{project.name}}</span> ({{project.time}})<span class="tag type-tag project-header-tag selected">{{project.type}}</span></h4>
+        <h4><span class="text-bold">{{project.name}}</span> ({{getTime(project)}})<span class="tag type-tag project-header-tag selected">{{project.type}}</span></h4>
 
         <div ng-if="project.images.length > 0">
             <div class="row">
