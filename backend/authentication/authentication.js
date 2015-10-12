@@ -1,6 +1,8 @@
 var jwt = require('jwt-simple');
 var _ = require('lodash');
 
+var User = require('../models/user.js');
+
 var auth = {
     authenticate: function (req, res, next) {
         var token = (req.body && req.body.access_token) || (req.query && req.query.access_token) || req.headers['x-access-token'];
@@ -18,8 +20,8 @@ var auth = {
                     return;
                 }
 
-                validateUser(req.db, decoded.user.username).then(function (user) {
-                    if (user && user.length > 0) {
+                User.findOne({username: decoded.user.username}, function (err, user) {
+                    if (!err && user) {
                         next();
                     } else {
                         res.status(401);
@@ -41,9 +43,12 @@ var auth = {
         }
     },
 
-    validate: function(db, username, password) {
-        var collection = db.get('users');
-        return collection.find({username: username, password: password}, {});
+    validate: function(username, password) {
+        return User.findOne({username: username, password: password}, function (err) {
+            if (err) {
+                console.log(err);
+            }
+        });
     },
 
     genToken: function (user) {
@@ -60,11 +65,6 @@ var auth = {
             user: secureUser
         };
     }
-}
-
-function validateUser(db, username) {
-    var collection = db.get('users');
-    return collection.find({username: username}, {});
 }
 
 function expiresIn(daysCount) {

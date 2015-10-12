@@ -1,36 +1,47 @@
-// Run this script to store records in static models into MongoDB
+// Run this script to store records in initial data into MongoDB
 
-var mongodb = require('mongodb');
+var _ = require('lodash');
+var mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost/project-portfolio');
 
-var server = new mongodb.Server('127.0.0.1', 27017, {});
-var client = new mongodb.Db('project-portfolio', server, {w: 1});
+var User = require('./models/user.js');
+var File = require('./models/file.js');
+var Link = require('./models/link.js');
+var Project = require('./models/project.js');
+var initialData = require('./models/initial_data.js');
 
-var staticModels = require('./models/static');
-
-client.open(function (err) {
-    if (err) throw err;
-
-    client.collection('users', function (err, collection) {
-        if (err) throw err;
-
-        collection.insert(staticModels.users);
+_.each(initialData.users, function (item) {
+    var user = new User(item);
+    user.save(function (err, user) {
+        if (err) {
+            console.log("Error when saving user:", err);
+        }
     });
+});
 
-    client.collection('files', function (err, collection) {
-        if (err) throw err;
-
-        collection.insert(staticModels.files);
+_.each(initialData.files, function (item) {
+    var file = new File(item);
+    file.save(function (err, file) {
+        if (err) {
+            console.log("Error when saving file:", err);
+        }
     });
+});
 
-    client.collection('links', function (err, collection) {
-        if (err) throw err;
-
-        collection.insert(staticModels.links);
+_.each(initialData.links, function (item) {
+    var link = new Link(item);
+    link.save(function (err, link) {
+        if (err) {
+            console.log("Error when saving link:", err);
+        }
     });
+});
 
-    client.collection('projects', function (err, collection) {
-        if (err) throw err;
-
-        collection.insert(staticModels.projects);
+_.each(initialData.projects, function (item) {
+    var project = new Project(item);
+    project.save(function (err, project) {
+        if (err) {
+            console.log("Error when saving project:", err);
+        }
     });
 });

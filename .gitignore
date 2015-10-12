@@ -67,6 +67,5 @@ frontend/app/assets/i18n/*
 !frontend/app/assets/i18n/_example.json
 frontend/app/assets/files/*
 frontend/app/assets/images/*
-backend/models/*
-!backend/models/_static.js
+backend/models/initial_data.js
 mongod.bat

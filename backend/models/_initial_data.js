@@ -1,4 +1,4 @@
-// Example static models
+// Example initial data
 // Remove '_' from file name to use this
 
 exports.users = [
@@ -16,8 +16,10 @@ exports.links = [
 exports.projects = [
     {
         name: "",
-        time: "",
+        startTime: "2015-01-01T00:00:00.000Z",
+        endTime: "2015-01-01T00:00:00.000Z",
         type: "",
+        shortDescription: "",
         description: "",
         tags: ["tag1", "tag2"],
         link: {name: "Visible link text", url: "url"},

@@ -2,7 +2,7 @@ var http = require('http');
 var express = require('express');
 var bodyParser = require('body-parser');
 var path = require('path');
-var db = require('monk')('localhost/project-portfolio')
+var mongoose = require('mongoose');
 var files = require('./routes/files');
 var links = require('./routes/links');
 var projects = require('./routes/projects');
@@ -13,6 +13,8 @@ var PublicFilePath = "/../frontend/_public/frontend";
 
 var app = express();
 
+mongoose.connect('mongodb://localhost/project-portfolio');
+
 // Configure app
 app.set('port', 3000);
 app.use(bodyParser.json());
@@ -20,12 +22,6 @@ app.use(express.static(path.join(__dirname + PublicFilePath)));
 app.use(function(req, res, next) {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type, Authorization');
-    next();
-});
-
-// Make db accessible in routers
-app.use(function(req, res, next){
-    req.db = db;
     next();
 });
 

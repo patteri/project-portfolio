@@ -1,33 +1,32 @@
 var express = require('express');
 var router = express.Router();
 
+var File = require('../models/file.js');
+
 router.get('/api/files', function(req, res) {
-    var collection = req.db.get('files');
-    collection.find({}, {}, function(err, data) {
+    File.find(function(err, data) {
         if (err) throw err;
         res.json(data);
     });
 });
 
 router.post('/api/admin/files', function (req, res) {
-    var collection = req.db.get('files');
-    collection.insert(req.body, function (err, data) {
+    var file = new File(req.body);
+    file.save(function (err, data) {
         if (err) throw err;
         res.json(data);
     });
 });
 
 router.put('/api/admin/files/:id', function (req, res) {
-    var collection = req.db.get('files');
-    collection.updateById(req.params.id, req.body, function (err, data) {
+    File.update({_id: req.params.id}, req.body, {}, function (err) {
         if (err) throw err;
         res.json({"message": "ok"});
     });
 });
 
 router.delete('/api/admin/files/:id', function (req, res) {
-    var collection = req.db.get('files');
-    collection.remove({_id: req.params.id}, function (err) {
+    File.remove({_id: req.params.id}, function (err) {
         if (err) throw err;
         res.json({"message": "ok"});
     });
