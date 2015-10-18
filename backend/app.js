@@ -2,6 +2,7 @@ var http = require('http');
 var express = require('express');
 var bodyParser = require('body-parser');
 var path = require('path');
+var config = require('./config.js');
 var mongoose = require('mongoose');
 var files = require('./routes/files');
 var links = require('./routes/links');
@@ -13,10 +14,10 @@ var PublicFilePath = "/../frontend/_public/frontend";
 
 var app = express();
 
-mongoose.connect('mongodb://localhost/project-portfolio');
+mongoose.connect(config.mongoDbAddress);
 
 // Configure app
-app.set('port', 3000);
+app.set('port', config.port);
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname + PublicFilePath)));
 app.use(function(req, res, next) {

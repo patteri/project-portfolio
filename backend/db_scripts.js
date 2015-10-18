@@ -1,5 +1,6 @@
 // Run this script to store records in initial data into MongoDB
 
+var crypto = require('crypto');
 var _ = require('lodash');
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/project-portfolio');
@@ -11,6 +12,7 @@ var Project = require('./models/project.js');
 var initialData = require('./models/initial_data.js');
 
 _.each(initialData.users, function (item) {
+    item.password = crypto.createHash('sha256').update(item.password).digest('hex');
     var user = new User(item);
     user.save(function (err, user) {
         if (err) {

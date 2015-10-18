@@ -1,4 +1,6 @@
 var jwt = require('jwt-simple');
+var crypto = require('crypto');
+var config = require('../config.js');
 var _ = require('lodash');
 
 var User = require('../models/user.js');
@@ -9,7 +11,7 @@ var auth = {
 
         if (token) {
             try {
-                var decoded = jwt.decode(token, "secret"); // TODO: put secret into config file
+                var decoded = jwt.decode(token, config.jwtSecret);
 
                 if (decoded.exp <= Date.now()) {
                     res.status(400);
@@ -44,7 +46,8 @@ var auth = {
     },
 
     validate: function(username, password) {
-        return User.findOne({username: username, password: password}, function (err) {
+        var encrypted = crypto.createHash('sha256').update(password).digest('hex');
+        return User.findOne({username: username, password: encrypted}, function (err) {
             if (err) {
                 console.log(err);
             }
@@ -52,12 +55,12 @@ var auth = {
     },
 
     genToken: function (user) {
-        var expires = expiresIn(7); // 7 days
+        var expires = expiresIn(config.tokenExpires);
         var secureUser = userToSecureJson(user);
         var token = jwt.encode({
             exp: expires,
             user: secureUser
-        }, "secret"); // TODO: put secret into config file
+        }, config.jwtSecret);
 
         return {
             token: token,
