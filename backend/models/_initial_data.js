@@ -15,12 +15,12 @@ exports.links = [
 
 exports.projects = [
     {
-        name: "",
+        name: "Test project",
         startTime: "2015-01-01T00:00:00.000Z",
         endTime: "2015-01-01T00:00:00.000Z",
-        type: "",
-        shortDescription: "",
-        description: "",
+        type: "Test type",
+        shortDescription: "Description",
+        description: "Description",
         tags: ["tag1", "tag2"],
         link: {name: "Visible link text", url: "url"},
         images: ["image_name"]

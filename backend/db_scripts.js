@@ -3,7 +3,8 @@
 var crypto = require('crypto');
 var _ = require('lodash');
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/project-portfolio');
+var config = require('./config.js');
+mongoose.connect(config.mongoDbAddress);
 
 var User = require('./models/user.js');
 var File = require('./models/file.js');
