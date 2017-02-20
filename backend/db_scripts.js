@@ -3,6 +3,7 @@
 var crypto = require('crypto');
 var _ = require('lodash');
 var mongoose = require('mongoose');
+var prompt = require('prompt');
 var config = require('./config.js');
 mongoose.connect(config.mongoDbAddress);
 
@@ -12,39 +13,88 @@ var Link = require('./models/link.js');
 var Project = require('./models/project.js');
 var initialData = require('./models/initial_data.js');
 
-_.each(initialData.users, function (item) {
-    item.password = crypto.createHash('sha256').update(item.password).digest('hex');
-    var user = new User(item);
-    user.save(function (err, user) {
-        if (err) {
-            console.log("Error when saving user:", err);
-        }
-    });
+// Prompt for confirmation
+console.log("This script initializes database '" +
+    config.mongoDbAddress +
+    "'. All existing data will be lost. If you want to continue, type 'yes'.");
+prompt.start();
+
+prompt.get(['answer'], function (err, result) {
+    if (!err && result.answer === 'yes') {
+        init();
+    }
+    else {
+        process.exit();
+    }
 });
 
-_.each(initialData.files, function (item) {
-    var file = new File(item);
-    file.save(function (err, file) {
-        if (err) {
-            console.log("Error when saving file:", err);
-        }
-    });
-});
+function init () {
+    console.log("Starting to initialize the database...");
+    saveUsers();
+}
 
-_.each(initialData.links, function (item) {
-    var link = new Link(item);
-    link.save(function (err, link) {
-        if (err) {
-            console.log("Error when saving link:", err);
-        }
-    });
-});
+function saveUsers () {
+    User.remove(function() {
+        var users = _.map(initialData.users, function (item) {
+            item.password = crypto.createHash('sha256').update(item.password).digest('hex');
+            return item;
+        });
 
-_.each(initialData.projects, function (item) {
-    var project = new Project(item);
-    project.save(function (err, project) {
-        if (err) {
-            console.log("Error when saving project:", err);
-        }
+        User.insertMany(users)
+            .then(function () {
+                console.log('Users saved successfully');
+                saveFiles();
+            })
+            .catch(function (err) {
+                console.log("Error when saving users:", err);
+                process.exit(1);
+            });
     });
-});
+}
+
+function saveFiles () {
+    File.remove(function() {
+        File.insertMany(initialData.files)
+            .then(function () {
+                console.log('Files saved successfully');
+                saveLinks();
+            })
+            .catch(function (err) {
+                console.log("Error when saving files:", err);
+                process.exit(1);
+            });
+    });
+}
+
+function saveLinks () {
+    Link.remove(function() {
+        Link.insertMany(initialData.links)
+            .then(function () {
+                console.log('Links saved successfully');
+                saveProjects();
+            })
+            .catch(function (err) {
+                console.log("Error when saving links:", err);
+                process.exit(1);
+            });
+    });
+}
+
+function saveProjects () {
+    Project.remove(function() {
+        Project.insertMany(initialData.projects)
+            .then(function () {
+                console.log('Projects saved successfully');
+                success();
+            })
+            .catch(function (err) {
+                console.log("Error when saving projects:", err);
+                process.exit(1);
+            });
+    });
+}
+
+function success () {
+    console.log("The database was initialized successfully!");
+    process.exit();
+}
